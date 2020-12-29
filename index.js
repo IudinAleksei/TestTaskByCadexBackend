@@ -1,6 +1,7 @@
 const express = require('express');
 const createBoxMesh = require('./mesh');
 const parseSizesFromGet = require('./parseSize');
+const checkRequestSizes = require('./check');
 
 const PORT = process.env.PORT || 8080;
 
@@ -8,9 +9,15 @@ const app = express();
 
 app.get('/', (req, res) => {
   const sizes = parseSizesFromGet(req.url);
-  const triangles = createBoxMesh(sizes);
+  if (checkRequestSizes(sizes)) {
+    const triangles = createBoxMesh(sizes);
 
-  res.send(triangles);
+    res.send(triangles);
+  } else {
+    res.status(400).send('Incorrect box sizes');
+  }
+
+
 })
 
 app.listen(PORT, () => {
