@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   if (checkRequestSizes(sizes)) {
     const triangles = createBoxMesh(sizes);
 
-    res.send(triangles);
+    res.type('json').status(200).json({triangles});
   } else {
     res.status(400).send('Incorrect box sizes');
   }
