@@ -4,11 +4,11 @@ const createBoxMesh = (sizes) => {
   const z = sizes.z/2;
   const triangles = [
     [[-x, -y, -z], [x, -y, -z], [-x, -y, z]], [[x, -y, z], [-x, -y, z], [x, -y, -z]], // left box edge
-    [[-x, y, -z], [x, y, -z], [-x, y, z]], [[x, y, z], [-x, y, z], [x, y, -z]], // right box edge
-    [[-x, -y, -z], [-x, y, -z], [-x, -y, z]], [[-x, y, z], [-x, y, -z], [-x, -y, z]], // rear box edge
-    [[x, -y, -z], [x, y, -z], [x, -y, z]], [[x, y, z], [x, y, -z], [x, -y, z]], // front box edge
+    [[-x, y, z], [x, y, -z], [-x, y, -z]], [[x, y, -z], [-x, y, z], [x, y, z]], // right box edge
+    [[-x, -y, z], [-x, y, -z], [-x, -y, -z]], [[-x, y, z], [-x, y, -z], [-x, -y, z]], // rear box edge
+    [[x, -y, -z], [x, y, -z], [x, -y, z]], [[x, -y, z], [x, y, -z], [x, y, z]], // front box edge
     [[-x, -y, -z], [-x, y, -z], [x, -y, -z]], [[x, y, -z], [x, -y, -z], [-x, y, -z]], // bottom box edge
-    [[-x, -y, z], [-x, y, z], [x, -y, z]], [[x, y, z], [x, -y, z], [-x, y, z]] // top box edge
+    [[x, -y, z], [-x, y, z], [-x, -y, z]], [[-x, y, z], [x, -y, z], [x, y, z]] // top box edge
   ];
   return triangles;
 };
