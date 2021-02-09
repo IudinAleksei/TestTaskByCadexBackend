@@ -3,8 +3,9 @@ var cors = require('cors')
 const createBoxMesh = require('./mesh');
 const parseSizesFromGet = require('./parseSize');
 const checkRequestSizes = require('./check');
+const USERS_DATA = require('./user-and-sevices');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3020;
 
 const app = express();
 
@@ -22,8 +23,11 @@ app.get('/', cors(corsOptions), (req, res) => {
   } else {
     res.status(400).send('Incorrect box sizes');
   }
+})
 
+app.get('/forms', cors(corsOptions), (req, res) => {
 
+    res.status(200).json(USERS_DATA);
 })
 
 app.listen(PORT, () => {
