@@ -40,7 +40,7 @@ const readJson = () => {
 
 const writeJson = (fullFileBody) => {
   const data = JSON.stringify(fullFileBody, undefined, 2);
-  fs.writeFileSync('student-2.json', data);
+  fs.writeFileSync(fileDB, data);
 }
 
 const findAndReplace = (source, newData) => source.map((field) => (field.id === newData.id) ? newData : field);
