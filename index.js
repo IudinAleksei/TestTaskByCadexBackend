@@ -4,7 +4,6 @@ const fs = require('fs');
 const createBoxMesh = require('./mesh');
 const parseSizesFromGet = require('./parseSize');
 const checkRequestSizes = require('./check');
-const USERS_DATA = require('./user-and-sevices');
 
 const PORT = process.env.PORT || 3020;
 
@@ -44,6 +43,8 @@ const writeJson = (fullFileBody) => {
   fs.writeFileSync('student-2.json', data);
 }
 
+const findAndReplace = (source, newData) => source.map((field) => (field.id === newData.id) ? newData : field);
+
 app.use(express.json());
 
 app.route('/forms/:field')
@@ -53,16 +54,15 @@ app.route('/forms/:field')
       res.status(200).json(responseData);
   })
   .post((req, res) => {
-    // console.log('base: ', req.body);
-    // writeJson(req.body);
-
+    const input = readJson();
+    input[req.params.field] = input[req.params.field].concat([req.body]);
+    writeJson(input);
     res.status(200).json(req.body);
 })
 
 app.route('/forms/:field/:id')
   .get((req, res) => {
-      console.log('spec:', req.params);
-      const responseData = readJson()[req.params.field][req.params.id-1];
+      const responseData = readJson()[req.params.field].find((item) => +item.id === +req.params.id);
       if (responseData) {
         res.status(200).json(responseData);
       } else {
@@ -73,12 +73,12 @@ app.route('/forms/:field/:id')
   })
   .patch((req, res) => {
     const input = readJson();
-    input[req.params.field][req.params.id-1] = req.body;
+    const fieldForUpdate = input[req.params.field].concat();
+    input[req.params.field] = findAndReplace(fieldForUpdate, req.body);
     writeJson(input);
-    // console.log('spec patch:', req.params, req.body);
     res.status(200).json(req.body);
 })
 
 app.listen(PORT, () => {
-  console.log('Server has being started...');
+  // console.log('Server has being started...');
 });

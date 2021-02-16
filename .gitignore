@@ -2,3 +2,4 @@ node_modules
 dist
 yarn.lock
 .vscode
+student-2.json
