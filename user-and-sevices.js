@@ -1,5 +1,5 @@
 const USERS_DATA = Object.freeze({
-  settings: {},
+  settings: [],
   users: [
     {
       id: 1,
